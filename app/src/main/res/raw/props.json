@@ -1,0 +1,27 @@
+{
+  "property": [
+    {
+      "key": "title",
+      "header": "Заголовок",
+      "type": "string",
+      "value": 30,
+      "items": [
+        10,
+        20,
+        30
+      ]
+    },
+    {
+      "key": "limit_amount",
+      "header": "Бюджет",
+      "type": "double",
+      "value": "0"
+    },
+    {
+      "key" : "some_int",
+      "header": "Какой-то целый",
+      "type": "integer"
+
+    }
+  ]
+}
