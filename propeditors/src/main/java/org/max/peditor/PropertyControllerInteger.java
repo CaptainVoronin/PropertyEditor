@@ -1,14 +1,13 @@
 package org.max.peditor;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.text.InputType;
 import android.widget.EditText;
 
 import java.util.List;
 
-public class PropertyEditorInteger extends APropertyEditor<Integer>{
-    public PropertyEditorInteger(Context context, int layoutId, String key, String header, Integer value, List<Object> items, int default_value_index) {
+public class PropertyControllerInteger extends APropertyController<Integer> {
+    public PropertyControllerInteger(Context context, int layoutId, String key, String header, Integer value, List<Object> items, int default_value_index) {
         super(context, layoutId, key, header, value, items, default_value_index);
     }
 

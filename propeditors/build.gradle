@@ -2,13 +2,12 @@ plugins {
     id 'com.android.library'
 }
 
-System.out.println("------------------------------")
+group 'org.max'
+version '1.0-SNAPSHOT'
 
 android {
     namespace 'org.max.peditor'
     compileSdk 33
-
-    System.out.println("------------------------------")
 
     def versionPropsFile = file('version.properties')
     def value = 0
@@ -28,7 +27,6 @@ android {
     }
 
     def mVersionName = ""
-    def mFileName = ""
 
     if (versionPropsFile.canRead()) {
         versionProps.load(new FileInputStream(versionPropsFile))
@@ -36,13 +34,9 @@ android {
         versionProps['VERSION_PATCH'] = (versionProps['VERSION_PATCH'].toInteger() + value).toString()
         versionProps['VERSION_NUMBER'] = (versionProps['VERSION_NUMBER'].toInteger() + value).toString()
         versionProps['VERSION_BUILD'] = (versionProps['VERSION_BUILD'].toInteger() + 1).toString()
-
         versionProps.store(versionPropsFile.newWriter(), null)
 
-        // 1: change major and minor version here
-        mVersionName = "v1.0.${versionProps['VERSION_PATCH']}.${versionProps['VERSION_BUILD']}"
-        // 2: change AppName for your app name
-        mFileName = "AppName-${mVersionName}.apk"
+        mVersionName = "v1.0.${versionProps['VERSION_PATCH']}"
 
     } else {
         throw new FileNotFoundException("Could not read version.properties!")
@@ -78,3 +72,4 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
 }
+

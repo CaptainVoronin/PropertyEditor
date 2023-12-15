@@ -2,7 +2,6 @@ package org.max.peditor;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class APropertyEditor<T> implements IPropertyEditor<T> {
+public abstract class APropertyController<T> implements IPropertyController<T> {
 
     private final Context context;
     private List<T> items;
@@ -32,13 +31,13 @@ public abstract class APropertyEditor<T> implements IPropertyEditor<T> {
 
     private IPropertyChangeListener<T> changeListener;
 
-    public APropertyEditor(Context context,
-                           int layoutId,
-                           String key,
-                           String header,
-                           T value,
-                           List<Object> items,
-                           int default_value_index) {
+    public APropertyController(Context context,
+                               int layoutId,
+                               String key,
+                               String header,
+                               T value,
+                               List<Object> items,
+                               int default_value_index) {
         this.context = context;
         this.layoutId = layoutId;
         this.key = key;
@@ -108,7 +107,8 @@ public abstract class APropertyEditor<T> implements IPropertyEditor<T> {
             if (changeListener != null)
                 changeListener.onChanged(value);
             TextView tv = view.findViewWithTag(PROPERTY_VALUE_TAG);
-            tv.setText(value.toString());
+            if( tv != null )
+                tv.setText(value.toString());
         }
         return true;
     }
@@ -137,7 +137,7 @@ public abstract class APropertyEditor<T> implements IPropertyEditor<T> {
                         index = i;
                         break;
                     }
-        } else if (getDefault_value_index() != IPropertyEditor.INVALID_DEFAULT_VALUE_INDEX)
+        } else if (getDefault_value_index() != IPropertyController.INVALID_DEFAULT_VALUE_INDEX)
             index = getDefault_value_index();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -169,5 +169,14 @@ public abstract class APropertyEditor<T> implements IPropertyEditor<T> {
         builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
 
         builder.show();
+    }
+
+    @Override
+    public void setSelectedItemIndex(int index)
+    {
+        if( items == null && index < 0 && items.size() <= index )
+            throw new ArrayIndexOutOfBoundsException();
+        T value = items.get( index );
+        setValue( value );
     }
 }
