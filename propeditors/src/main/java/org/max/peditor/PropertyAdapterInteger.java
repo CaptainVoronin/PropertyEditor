@@ -6,14 +6,14 @@ import android.widget.EditText;
 
 import java.util.List;
 
-public class PropertyControllerDouble extends APropertyController<Double> {
-    public PropertyControllerDouble(Context context, int layoutId, String key, String header, Double value, List<Object> items, int default_value_index) {
+public class PropertyAdapterInteger extends APropertyAdapter<Integer> {
+    public PropertyAdapterInteger(Context context, int layoutId, String key, String header, Integer value, List<Object> items, int default_value_index) {
         super(context, layoutId, key, header, value, items, default_value_index);
     }
 
     @Override
-    public Double convertValue(Object value) {
-        return Double.valueOf( value.toString() );
+    public Integer convertValue(Object value) {
+        return Integer.valueOf( value.toString() );
     }
 
     public EditText getValueEditor() {

@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import java.util.List;
 
-public interface IPropertyController<T> extends View.OnClickListener {
+public interface IPropertyAdapter<T> extends View.OnClickListener {
 
     String PROPERTY_HEADER_TAG = "property_header";
     String PROPERTY_VALUE_TAG = "property_value";

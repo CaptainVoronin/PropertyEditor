@@ -1,7 +1,7 @@
 package org.max.peditor;
 
-import static org.max.peditor.IPropertyController.PR_DEFAULT_VALUE_INDEX;
-import static org.max.peditor.IPropertyController.PR_KEY_VALUE;
+import static org.max.peditor.IPropertyAdapter.PR_DEFAULT_VALUE_INDEX;
+import static org.max.peditor.IPropertyAdapter.PR_KEY_VALUE;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -30,7 +30,7 @@ public class PropertySet {
     public static final String PR_KEY_HEADER = "header";
     public static final String PR_KEY_TYPE = "type";
     private static final String PR_KEY_ITEMS = "items";
-    private Map<String, IPropertyController<?>> properties;
+    private Map<String, IPropertyAdapter<?>> properties;
 
     public PropertySet(Context context, ViewGroup parent, int resourceId, int staticLayoutId) {
         this.context = context;
@@ -55,14 +55,14 @@ public class PropertySet {
         JSONArray props = job.getJSONArray("property");
         for (int i = 0; i < props.length(); i++) {
             JSONObject jProp = props.getJSONObject(i);
-            IPropertyController<?> pe = createPropertyEditor(jProp);
+            IPropertyAdapter<?> pe = createPropertyEditor(jProp);
             properties.put(pe.getKey(), pe);
             View v = pe.getView();
             parent.addView(v);
         }
     }
 
-    private IPropertyController<?> createPropertyEditor(JSONObject jProp) throws JSONException {
+    private IPropertyAdapter<?> createPropertyEditor(JSONObject jProp) throws JSONException {
         String type = jProp.getString(PR_KEY_TYPE);
         String header = jProp.getString(PR_KEY_HEADER);
         String key = jProp.getString(PR_KEY_KEY);
@@ -71,7 +71,7 @@ public class PropertySet {
             value = jProp.getString( PR_KEY_VALUE );
 
         List<Object> items = null;
-        int default_value_index = IPropertyController.INVALID_DEFAULT_VALUE_INDEX;
+        int default_value_index = IPropertyAdapter.INVALID_DEFAULT_VALUE_INDEX;
         if( jProp.has( "items") )
         {
             JSONArray jItems = jProp.getJSONArray( PR_KEY_ITEMS );
@@ -84,11 +84,11 @@ public class PropertySet {
          }
 
         if (type.trim().equalsIgnoreCase("string"))
-            return new PropertyControllerString(context, staticLayoutId, key, header, value, items, default_value_index);
+            return new PropertyAdapterString(context, staticLayoutId, key, header, value, items, default_value_index);
         else if (type.trim().equalsIgnoreCase("double"))
-            return new PropertyControllerDouble(context, staticLayoutId, key, header, value != null ? Double.valueOf(value) : 0,  items, default_value_index);
+            return new PropertyAdapterDouble(context, staticLayoutId, key, header, value != null ? Double.valueOf(value) : 0,  items, default_value_index);
         else if (type.trim().equalsIgnoreCase("integer"))
-            return new PropertyControllerInteger(context, staticLayoutId, key, header, value != null ? Integer.valueOf(value) : 0,  items, default_value_index);
+            return new PropertyAdapterInteger(context, staticLayoutId, key, header, value != null ? Integer.valueOf(value) : 0,  items, default_value_index);
         else
             throw new InvalidParameterException("Property type " + type + " is unknown");
     }
@@ -123,7 +123,7 @@ public class PropertySet {
         }
     }
 
-    public IPropertyController<?> getByKey(String key) {
+    public IPropertyAdapter<?> getByKey(String key) {
         return properties.get( key );
     }
 }

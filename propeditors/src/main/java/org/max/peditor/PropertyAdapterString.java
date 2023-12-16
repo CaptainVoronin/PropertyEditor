@@ -6,9 +6,9 @@ import android.widget.EditText;
 
 import java.util.List;
 
-public class PropertyControllerString extends APropertyController<String> {
+public class PropertyAdapterString extends APropertyAdapter<String> {
 
-    public PropertyControllerString(Context context, int layoutId, String key, String header, String value, List<Object> items, int default_value_index) {
+    public PropertyAdapterString(Context context, int layoutId, String key, String header, String value, List<Object> items, int default_value_index) {
         super(context, layoutId, key, header, value, items, default_value_index);
     }
 

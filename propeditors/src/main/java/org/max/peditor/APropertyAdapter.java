@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class APropertyController<T> implements IPropertyController<T> {
+public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
 
     private final Context context;
     private List<T> items;
@@ -31,13 +31,13 @@ public abstract class APropertyController<T> implements IPropertyController<T> {
 
     private IPropertyChangeListener<T> changeListener;
 
-    public APropertyController(Context context,
-                               int layoutId,
-                               String key,
-                               String header,
-                               T value,
-                               List<Object> items,
-                               int default_value_index) {
+    public APropertyAdapter(Context context,
+                            int layoutId,
+                            String key,
+                            String header,
+                            T value,
+                            List<Object> items,
+                            int default_value_index) {
         this.context = context;
         this.layoutId = layoutId;
         this.key = key;
@@ -137,7 +137,7 @@ public abstract class APropertyController<T> implements IPropertyController<T> {
                         index = i;
                         break;
                     }
-        } else if (getDefault_value_index() != IPropertyController.INVALID_DEFAULT_VALUE_INDEX)
+        } else if (getDefault_value_index() != IPropertyAdapter.INVALID_DEFAULT_VALUE_INDEX)
             index = getDefault_value_index();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
