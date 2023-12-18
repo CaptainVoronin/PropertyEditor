@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.InputType;
 
 import org.max.peditor.editors.IPropertyEditor;
+import org.max.peditor.editors.ITypeConverter;
 import org.max.peditor.editors.PropertyEditorSimpleType;
 
 import java.util.List;
@@ -14,13 +15,13 @@ public class PropertyAdapterInteger extends APropertyAdapter<Integer> {
     }
 
     @Override
-    public Integer convertValue(Object value) {
-        return Integer.valueOf( value.toString() );
+    public ITypeConverter<Integer> getTypeConverter() {
+        return value->Integer.valueOf( value.toString() );
     }
 
     @Override
     public IPropertyEditor<Integer> getPropertyEditor(Context context)
     {
-        return new PropertyEditorSimpleType<>(context, InputType.TYPE_CLASS_NUMBER);
+        return new PropertyEditorSimpleType<>(context, getTypeConverter(), InputType.TYPE_CLASS_NUMBER);
     }
 }

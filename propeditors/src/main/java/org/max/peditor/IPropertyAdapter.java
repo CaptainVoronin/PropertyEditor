@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.max.peditor.editors.IPropertyEditor;
+import org.max.peditor.editors.ITypeConverter;
 
 import java.util.List;
 
@@ -34,11 +35,13 @@ public interface IPropertyAdapter<T> extends View.OnClickListener {
 
     boolean setValue( T value );
 
-    T convertValue( Object value );
+    ITypeConverter<T> getTypeConverter( );
 
     List<T> getItems();
 
     void setSelectedItemIndex( int index );
 
     IPropertyEditor<T> getPropertyEditor(Context context );
+
+    void setCustomPropertyEditor( IPropertyEditor<T> editor );
 }

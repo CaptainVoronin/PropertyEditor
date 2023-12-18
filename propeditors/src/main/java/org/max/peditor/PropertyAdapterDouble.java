@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.InputType;
 
 import org.max.peditor.editors.IPropertyEditor;
+import org.max.peditor.editors.ITypeConverter;
 import org.max.peditor.editors.PropertyEditorSimpleType;
 
 import java.util.List;
@@ -14,14 +15,14 @@ public class PropertyAdapterDouble extends APropertyAdapter<Double> {
     }
 
     @Override
-    public Double convertValue(Object value) {
-        return Double.valueOf( value.toString() );
+    public ITypeConverter<Double> getTypeConverter() {
+        return value-> Double.valueOf( value.toString() );
     }
 
     @Override
     public IPropertyEditor<Double> getPropertyEditor(Context context)
     {
-        return new PropertyEditorSimpleType<>(context, InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL );
+        return new PropertyEditorSimpleType<>(context, getTypeConverter(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL );
     }
 
 }

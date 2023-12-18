@@ -13,4 +13,6 @@ public interface IPropertyEditor<T>
     void show();
 
     IPropertyEditor<T> setOnOkListener(IOnOkListener listener);
+
+    ITypeConverter<T> getTypeConverter();
 }

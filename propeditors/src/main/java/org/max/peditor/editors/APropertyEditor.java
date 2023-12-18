@@ -16,9 +16,12 @@ public abstract class APropertyEditor<T> implements IPropertyEditor<T>
 
     List<T> values;
 
-    public APropertyEditor(Context context)
+    ITypeConverter<T> typeConverter;
+
+    public APropertyEditor(Context context, ITypeConverter<T> typeConverter)
     {
         this.context = context;
+        this.typeConverter = typeConverter;
         values = null;
     }
 
@@ -79,5 +82,11 @@ public abstract class APropertyEditor<T> implements IPropertyEditor<T>
     {
         this.listener = listener;
         return this;
+    }
+
+    @Override
+    public ITypeConverter<T> getTypeConverter()
+    {
+        return typeConverter;
     }
 }

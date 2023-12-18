@@ -5,6 +5,7 @@ import static org.max.peditor.IPropertyAdapter.PR_KEY_VALUE;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -89,6 +90,8 @@ public final class PropertySet {
             return new PropertyAdapterDouble(context, staticLayoutId, key, header, value != null ? Double.valueOf(value) : 0, items, default_value_index);
         else if (type.trim().equalsIgnoreCase("integer"))
             return new PropertyAdapterInteger(context, staticLayoutId, key, header, value != null ? Integer.valueOf(value) : 0, items, default_value_index);
+        else if (type.trim().equalsIgnoreCase("color"))
+            return new PropertyAdapterColor(context, staticLayoutId, key, header, value != null ? Color.valueOf(Color.parseColor(value)) : null, items, default_value_index);
         else
             throw new InvalidParameterException("Property type " + type + " is unknown");
     }
