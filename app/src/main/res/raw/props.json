@@ -22,6 +22,12 @@
       "header": "Какой-то целый",
       "type": "integer"
 
+    },
+    {
+      "key" : "color",
+      "type" : "color",
+      "header" : "Цвет",
+      "value" : "#FFFF5500"
     }
   ]
 }
