@@ -1,7 +1,10 @@
 package org.max.peditor;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
+
+import org.max.peditor.editors.IPropertyEditor;
 
 import java.util.List;
 
@@ -35,7 +38,7 @@ public interface IPropertyAdapter<T> extends View.OnClickListener {
 
     List<T> getItems();
 
-    EditText getValueEditor();
-
     void setSelectedItemIndex( int index );
+
+    IPropertyEditor<T> getPropertyEditor(Context context );
 }

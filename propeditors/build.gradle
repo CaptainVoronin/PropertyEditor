@@ -7,13 +7,13 @@ version '1.0-SNAPSHOT'
 
 android {
     namespace 'org.max.peditor'
-    compileSdk 33
+    compileSdk 31
 
     def versionPropsFile = file('version.properties')
     def value = 0
     Properties versionProps = new Properties()
     if (!versionPropsFile.exists()) {
-        versionProps['VERSION_PATCH'] = "0"
+        versionProps['VERSION_PATCH'] = "1"
         versionProps['VERSION_NUMBER'] = "1"
         versionProps['VERSION_BUILD'] = "-1"
         // I set it to minus one so the first build is 0 which isn't super important.
@@ -49,7 +49,7 @@ android {
     }
 
     defaultConfig {
-        minSdk 33
+        minSdk 31
         versionCode 1
         versionName "1.0"
         versionCode versionProps['VERSION_NUMBER'].toInteger()
@@ -70,6 +70,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    //implementation 'com.github.Dhaval2404:ColorPicker:2.3'
 }
 

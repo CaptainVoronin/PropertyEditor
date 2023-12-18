@@ -2,7 +2,9 @@ package org.max.peditor;
 
 import android.content.Context;
 import android.text.InputType;
-import android.widget.EditText;
+
+import org.max.peditor.editors.IPropertyEditor;
+import org.max.peditor.editors.PropertyEditorSimpleType;
 
 import java.util.List;
 
@@ -18,9 +20,9 @@ public class PropertyAdapterString extends APropertyAdapter<String> {
     }
 
     @Override
-    public EditText getValueEditor() {
-        EditText input = new EditText(getContext());
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        return input;
+    public IPropertyEditor<String> getPropertyEditor(Context context)
+    {
+        return new PropertyEditorSimpleType<>(context, InputType.TYPE_CLASS_TEXT);
     }
+
 }

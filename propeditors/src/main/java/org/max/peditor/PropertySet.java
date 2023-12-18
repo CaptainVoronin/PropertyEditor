@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PropertySet {
+public final class PropertySet {
 
     public static final String PR_KEY_KEY = "key";
     public static final String PR_KEY_HEADER = "header";
@@ -55,14 +55,14 @@ public class PropertySet {
         JSONArray props = job.getJSONArray("property");
         for (int i = 0; i < props.length(); i++) {
             JSONObject jProp = props.getJSONObject(i);
-            IPropertyAdapter<?> pe = createPropertyEditor(jProp);
+            IPropertyAdapter<?> pe = createPropertyAdapter(jProp);
             properties.put(pe.getKey(), pe);
             View v = pe.getView();
             parent.addView(v);
         }
     }
 
-    private IPropertyAdapter<?> createPropertyEditor(JSONObject jProp) throws JSONException {
+    private IPropertyAdapter<? extends Object> createPropertyAdapter(JSONObject jProp) throws JSONException {
         String type = jProp.getString(PR_KEY_TYPE);
         String header = jProp.getString(PR_KEY_HEADER);
         String key = jProp.getString(PR_KEY_KEY);
@@ -86,9 +86,9 @@ public class PropertySet {
         if (type.trim().equalsIgnoreCase("string"))
             return new PropertyAdapterString(context, staticLayoutId, key, header, value, items, default_value_index);
         else if (type.trim().equalsIgnoreCase("double"))
-            return new PropertyAdapterDouble(context, staticLayoutId, key, header, value != null ? Double.valueOf(value) : 0,  items, default_value_index);
+            return new PropertyAdapterDouble(context, staticLayoutId, key, header, value != null ? Double.valueOf(value) : 0, items, default_value_index);
         else if (type.trim().equalsIgnoreCase("integer"))
-            return new PropertyAdapterInteger(context, staticLayoutId, key, header, value != null ? Integer.valueOf(value) : 0,  items, default_value_index);
+            return new PropertyAdapterInteger(context, staticLayoutId, key, header, value != null ? Integer.valueOf(value) : 0, items, default_value_index);
         else
             throw new InvalidParameterException("Property type " + type + " is unknown");
     }

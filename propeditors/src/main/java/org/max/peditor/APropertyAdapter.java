@@ -7,10 +7,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.max.peditor.editors.IOnOkListener;
+import org.max.peditor.editors.IPropertyEditor;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
+public abstract class APropertyAdapter<T> implements IPropertyAdapter<T>
+{
 
     private final Context context;
     private List<T> items;
@@ -37,7 +41,8 @@ public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
                             String header,
                             T value,
                             List<Object> items,
-                            int default_value_index) {
+                            int default_value_index)
+    {
         this.context = context;
         this.layoutId = layoutId;
         this.key = key;
@@ -50,7 +55,8 @@ public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
     }
 
     @Override
-    public final View getView() {
+    public final View getView()
+    {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         view = inflater.inflate(layoutId, null);
         TextView tv = view.findViewWithTag(PROPERTY_HEADER_TAG);
@@ -64,119 +70,115 @@ public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
     }
 
     @Override
-    public final T getValue() {
+    public final T getValue()
+    {
         return value;
     }
 
     @Override
-    public final void setBeforeChangeListener(IValidator<T> validator) {
+    public final void setBeforeChangeListener(IValidator<T> validator)
+    {
         this.validator = validator;
     }
 
     @Override
-    public final void setChangeListener(IPropertyChangeListener<T> changeListener) {
+    public final void setChangeListener(IPropertyChangeListener<T> changeListener)
+    {
         this.changeListener = changeListener;
     }
 
-    public final Context getContext() {
+    public final Context getContext()
+    {
         return context;
     }
 
-    public final String getKey() {
+    public final String getKey()
+    {
         return key;
     }
 
     @Override
-    public final void onClick(View v) {
+    public final void onClick(View v)
+    {
         editValue();
     }
 
     @Override
-    public boolean setValue(T newValue) {
+    public boolean setValue(T newValue)
+    {
         boolean result = false;
-        if (validator != null) {
-            if (validator.isValid(newValue)) {
+        if (validator != null)
+        {
+            if (validator.isValid(newValue))
+            {
                 value = newValue;
                 result = true;
             }
-        } else {
+        } else
+        {
             value = newValue;
             result = true;
         }
-        if (result) {
+        if (result)
+        {
             if (changeListener != null)
                 changeListener.onChanged(value);
             TextView tv = view.findViewWithTag(PROPERTY_VALUE_TAG);
-            if( tv != null )
+            if (tv != null)
                 tv.setText(value.toString());
         }
         return true;
     }
 
     @Override
-    public String getHeader() {
+    public String getHeader()
+    {
         return header;
     }
 
     @Override
-    public final List<T> getItems() {
+    public final List<T> getItems()
+    {
         return items;
     }
 
-    public int getDefault_value_index() {
+    public int getDefault_value_index()
+    {
         return default_value_index;
     }
 
     @Override
-    public void editValue() {
+    public void editValue()
+    {
         int index = -1;
-        if (getValue() != null) {
+        if (getValue() != null)
+        {
             if (getItems() != null)
                 for (int i = 0; i < getItems().size(); i++)
-                    if (getValue().equals(getItems().get(i))) {
+                    if (getValue().equals(getItems().get(i)))
+                    {
                         index = i;
                         break;
                     }
         } else if (getDefault_value_index() != IPropertyAdapter.INVALID_DEFAULT_VALUE_INDEX)
             index = getDefault_value_index();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getHeader());
+        IPropertyEditor<T> editor = getPropertyEditor(context);
 
-        if (getItems() != null) {
-            builder.setSingleChoiceItems(getItems().stream().map(Object::toString).toArray(String[]::new),
-                    index,
-                    (dialogInterface, i) -> {
-                        setValue(convertValue(items.get(i)));
-                        dialogInterface.cancel();
-                    });
+        editor.setTitle(getHeader());
 
-            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                dialog.cancel();
-            });
-        } else {
-            final EditText input = getValueEditor();
-            if (getValue() != null)
-                input.setText(getValue().toString());
+        if (getItems() != null)
+            editor.setValues(getItems(), index);
 
-            builder.setView(input);
-            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                setValue(convertValue(input.getText()));
-                dialog.cancel();
-            });
-        }
-
-        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
-
-        builder.show();
+        editor.setValue(getValue());
+        editor.setOnOkListener(v -> setValue(convertValue(v)));
+        editor.show();
     }
 
     @Override
     public void setSelectedItemIndex(int index)
     {
-        if( items == null && index < 0 && items.size() <= index )
-            throw new ArrayIndexOutOfBoundsException();
-        T value = items.get( index );
-        setValue( value );
+        T value = items.get(index);
+        setValue(value);
     }
 }
