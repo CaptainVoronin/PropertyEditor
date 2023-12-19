@@ -7,6 +7,7 @@ import com.github.dhaval2404.colorpicker.ColorPickerDialog;
 import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog;
 import com.github.dhaval2404.colorpicker.listener.ColorListener;
 import com.github.dhaval2404.colorpicker.model.ColorShape;
+import com.github.dhaval2404.colorpicker.model.ColorSwatch;
 
 public class PropertyEditorColor extends APropertyEditor<Color> {
     public PropertyEditorColor(Context context, ITypeConverter<Color> converter) {
@@ -17,16 +18,18 @@ public class PropertyEditorColor extends APropertyEditor<Color> {
     public void show() {
         MaterialColorPickerDialog.Builder dlg = new MaterialColorPickerDialog
                 .Builder(getContext())
-                .setTitle("Pick Theme")
+                .setTitle(getTitle())
+                .setColorSwatch(ColorSwatch._900)
                 .setColorShape(ColorShape.SQAURE);
         if (getValue() != null)
-            dlg.setDefaultColor(getValue().toString());
-        dlg.setColorListener(new ColorListener() {
-            @Override
-            public void onColorSelected(int i, String s) {
-
-            }
-        });
+        {
+            String hex= String.format("#%06X", (0xFFFFFF & getValue().toArgb()));
+            dlg.setDefaultColor( hex );
+        }
+        else
+        {
+            dlg.setDefaultColor( "#FF000000" );
+        }
 
         dlg.setColorListener((color, colorHex) -> {
             if (getListener() != null)
