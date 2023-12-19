@@ -54,15 +54,18 @@ public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
 
     @Override
     public View getView() {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        view = inflater.inflate(layoutId, null);
-        TextView tv = view.findViewWithTag(PROPERTY_HEADER_TAG);
-        tv.setText(header);
-        tv = view.findViewWithTag(PROPERTY_VALUE_TAG);
-        if (value != null)
-            tv.setText(value.toString());
+        if( view == null )
+        {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            view = inflater.inflate(layoutId, null);
+            TextView tv = view.findViewWithTag(PROPERTY_HEADER_TAG);
+            tv.setText(header);
+            tv = view.findViewWithTag(PROPERTY_VALUE_TAG);
+            if (value != null)
+                tv.setText(value.toString());
 
-        tv.setOnClickListener(this);
+            tv.setOnClickListener(this);
+        }
         return view;
     }
 

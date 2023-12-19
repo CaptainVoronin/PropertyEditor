@@ -3,9 +3,11 @@ package org.max.peditor;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import org.max.peditor.editors.IPropertyEditor;
 import org.max.peditor.editors.ITypeConverter;
+import org.max.peditor.editors.PropertyEditorColor;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class PropertyAdapterColor extends APropertyAdapter<Color> {
 
         if (getValue() != null)
             tv.setBackgroundColor( getValue().toArgb() );
+        else
+            tv.setBackgroundColor( Color.BLACK );
 
         tv.setOnClickListener(this);
         return view;
@@ -47,7 +51,17 @@ public class PropertyAdapterColor extends APropertyAdapter<Color> {
     }
 
     @Override
+    public boolean setValue(Color newValue)
+    {
+        super.setValue(newValue );
+        TextView ed = view.findViewWithTag( PROPERTY_VALUE_TAG );
+        ed.setText( "   " );
+        ed.setBackgroundColor( newValue.toArgb() );
+        return true;
+    }
+
+    @Override
     public IPropertyEditor<Color> getPropertyEditor(Context context) {
-        return null;
+        return new PropertyEditorColor(context, getTypeConverter());
     }
 }

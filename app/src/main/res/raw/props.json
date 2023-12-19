@@ -26,8 +26,7 @@
     {
       "key" : "color",
       "type" : "color",
-      "header" : "Цвет",
-      "value" : "#FFFF5500"
+      "header" : "Цвет"
     }
   ]
 }
