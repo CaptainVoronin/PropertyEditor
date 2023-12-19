@@ -1,11 +1,11 @@
-package org.max.peditor;
+package org.max.preditor;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import org.max.peditor.editors.IPropertyEditor;
+import org.max.preditor.editors.IPropertyEditor;
 
 import java.util.List;
 import java.util.stream.Collectors;

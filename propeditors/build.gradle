@@ -7,7 +7,7 @@ group 'org.max'
 version '1.0-SNAPSHOT'
 
 android {
-    namespace 'org.max.peditor'
+    namespace 'org.max.preditor'
     compileSdk 31
 
     def versionPropsFile = file('version.properties')

@@ -1,4 +1,4 @@
-package org.max.peditor.editors;
+package org.max.preditor.editors;
 
 import java.util.List;
 

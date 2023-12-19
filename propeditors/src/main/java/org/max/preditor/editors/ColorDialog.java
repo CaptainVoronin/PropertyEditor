@@ -1,7 +1,6 @@
-package org.max.peditor.editors;
+package org.max.preditor.editors;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.madrapps.pikolo.ColorPicker;
 import com.madrapps.pikolo.listeners.SimpleColorSelectionListener;
-
-import org.max.peditor.R;
 
 public class ColorDialog {
     private final Context context;
@@ -66,12 +63,12 @@ public class ColorDialog {
 
     private View getView() {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(org.max.peditor.R.layout.color_dialog, null);
-        ColorPicker colorPicker = view.findViewById(org.max.peditor.R.id.colorPicker);
+        View view = inflater.inflate(org.max.preditor.R.layout.color_dialog, null);
+        ColorPicker colorPicker = view.findViewById(org.max.preditor.R.id.colorPicker);
         colorPicker.setColor(color);
-        imageView = view.findViewById(R.id.imageView);
+        imageView = view.findViewById(org.max.preditor.R.id.imageView);
         background = (GradientDrawable) imageView.getBackground();
-        colorButton = view.findViewById(R.id.randomColorButton);
+        colorButton = view.findViewById(org.max.preditor.R.id.randomColorButton);
         innerSetColor( color );
         colorPicker.setColorSelectionListener(new SimpleColorSelectionListener() {
             @Override

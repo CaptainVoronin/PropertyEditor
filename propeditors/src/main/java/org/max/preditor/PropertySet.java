@@ -1,7 +1,7 @@
-package org.max.peditor;
+package org.max.preditor;
 
-import static org.max.peditor.IPropertyAdapter.PR_DEFAULT_VALUE_INDEX;
-import static org.max.peditor.IPropertyAdapter.PR_KEY_VALUE;
+import static org.max.preditor.IPropertyAdapter.PR_DEFAULT_VALUE_INDEX;
+import static org.max.preditor.IPropertyAdapter.PR_KEY_VALUE;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -31,6 +31,7 @@ public final class PropertySet {
     public static final String PR_KEY_HEADER = "header";
     public static final String PR_KEY_TYPE = "type";
     private static final String PR_KEY_ITEMS = "items";
+    private static final String PR_LAYOUT_ID = "layoutId";
     private Map<String, IPropertyAdapter<?>> properties;
 
     public PropertySet(Context context, ViewGroup parent, int resourceId, int staticLayoutId) {
@@ -67,6 +68,12 @@ public final class PropertySet {
         String type = jProp.getString(PR_KEY_TYPE);
         String header = jProp.getString(PR_KEY_HEADER);
         String key = jProp.getString(PR_KEY_KEY);
+        String layoutId = null;
+        if( jProp.has( PR_LAYOUT_ID ) ) {
+            layoutId = jProp.getString(PR_LAYOUT_ID);
+            staticLayoutId = context.getResources().getIdentifier( layoutId, "layout", context.getPackageName());
+        }
+
         String value = null;
         if( jProp.has( PR_KEY_VALUE ))
             value = jProp.getString( PR_KEY_VALUE );

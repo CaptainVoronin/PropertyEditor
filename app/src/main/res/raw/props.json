@@ -24,6 +24,7 @@
 
     },
     {
+      "layoutId": "color_select",
       "key" : "color",
       "type" : "color",
       "header" : "Цвет"

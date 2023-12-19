@@ -1,11 +1,11 @@
-package org.max.peditor;
+package org.max.preditor;
 
 import android.content.Context;
 import android.text.InputType;
 
-import org.max.peditor.editors.IPropertyEditor;
-import org.max.peditor.editors.ITypeConverter;
-import org.max.peditor.editors.PropertyEditorSimpleType;
+import org.max.preditor.editors.IPropertyEditor;
+import org.max.preditor.editors.ITypeConverter;
+import org.max.preditor.editors.PropertyEditorSimpleType;
 
 import java.util.List;
 

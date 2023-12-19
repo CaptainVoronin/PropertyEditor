@@ -1,13 +1,12 @@
-package org.max.peditor;
+package org.max.preditor;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import org.max.peditor.editors.IPropertyEditor;
-import org.max.peditor.editors.ITypeConverter;
-import org.max.peditor.editors.PropertyEditorColor;
+import org.max.preditor.editors.IPropertyEditor;
+import org.max.preditor.editors.ITypeConverter;
+import org.max.preditor.editors.PropertyEditorColor;
 
 import java.util.List;
 
