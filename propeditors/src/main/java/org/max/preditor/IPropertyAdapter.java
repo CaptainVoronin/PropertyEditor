@@ -13,6 +13,7 @@ public interface IPropertyAdapter<T> extends View.OnClickListener {
     String PROPERTY_HEADER_TAG = "property_header";
     String PROPERTY_VALUE_TAG = "property_value";
     String PROPERTY_PROMPT_TAG = "property_prompt";
+    String PROPERTY_COLOR_PATCH = "color_patch";
     String PR_DEFAULT_VALUE_INDEX = "default_value_index";
     String PR_KEY_VALUE = "value";
 

@@ -13,7 +13,7 @@ public class PropertyEditorColor extends APropertyEditor<Color> {
         ColorDialog dialog = new ColorDialog(getContext());
         dialog.setPositiveButtonListener( (color)->{
             if( getListener()!= null )
-                getListener().onOkPressed( getTypeConverter().convertValue( color ) );
+                getListener().onOkPressed( color );
         });
         if( getValue()!= null )
             dialog.setSelectedColor( getValue().toArgb() );

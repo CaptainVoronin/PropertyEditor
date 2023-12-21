@@ -55,7 +55,8 @@ public class ColorDialog {
         builder.setPositiveButton(android.R.string.ok, (dialog, i) -> {
             if (positiveListener != null)
                 positiveListener.onButtonClick(getSelectedColor());
-            dialog.cancel();
+            dialog.dismiss();
+
         });
 
         return builder.create();

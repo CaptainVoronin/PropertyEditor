@@ -1,5 +1,6 @@
 package org.max.preditor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,11 @@ public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
     private final int default_value_index;
     private T value;
 
+    public int getLayoutId()
+    {
+        return layoutId;
+    }
+
     private int layoutId;
 
     private String key;
@@ -25,9 +31,19 @@ public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
 
     private String prompt;
 
+    public IValidator<T> getValidator()
+    {
+        return validator;
+    }
+
     private IValidator<T> validator;
 
     View view;
+
+    public IPropertyChangeListener<T> getChangeListener()
+    {
+        return changeListener;
+    }
 
     private IPropertyChangeListener<T> changeListener;
 
@@ -56,7 +72,8 @@ public abstract class APropertyAdapter<T> implements IPropertyAdapter<T> {
     public View getView() {
         if( view == null )
         {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
+            //LayoutInflater inflater = LayoutInflater.from(getContext());
+            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             view = inflater.inflate(layoutId, null);
             TextView tv = view.findViewWithTag(PROPERTY_HEADER_TAG);
             tv.setText(header);
